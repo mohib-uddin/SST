@@ -105,12 +105,12 @@ export default function ViewTest() {
     <div className='maincont'>
     <Sidebar></Sidebar>
      <div className='dataview'>
-     {Test!=null&&Test.map((e) => {
+     {Test!=null&&Test.map((e,index) => {
         console.log(e);
                return(
 
                 <div className='studentcontainer'>
-                    <Card key={e._id} className='studentcard' style={{display:'flex'}}>
+                    <Card key={index} className='studentcard' style={{display:'flex'}}>
                 <CardContent>
                   <Typography sx={{ fontSize: 20 }} variant='h2' gutterBottom>
                     {e.Title}

@@ -236,11 +236,11 @@ export default function GetStudents() {
 
 
     <div className='dataview'>
-    {Students!=null&&Students&&Students.map((e) => {
+    {Students!=null&&Students&&Students.map((e,index) => {
                return(
 
                 <div className='studentcontainer'>
-                <Card key={e._id} className='studentcard' style={{display:'flex'}}>
+                <Card key={index} className='studentcard' style={{display:'flex'}}>
                 <CardContent className='cardcontent'>
                   <Typography sx={{ fontSize: 20 }} variant='h2' gutterBottom>
                     <Link
