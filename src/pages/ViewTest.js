@@ -109,8 +109,8 @@ export default function ViewTest() {
         console.log(e);
                return(
 
-                <div className='studentcontainer'>
-                    <Card key={index} className='studentcard' style={{display:'flex'}}>
+                <div key={index} className='studentcontainer'>
+                    <Card  className='studentcard' style={{display:'flex'}}>
                 <CardContent>
                   <Typography sx={{ fontSize: 20 }} variant='h2' gutterBottom>
                     {e.Title}

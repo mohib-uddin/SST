@@ -170,7 +170,7 @@ export default function GetStudents() {
 
  }
 
- const [Batch,setBatch]=useState();
+ const [Batch,setBatch]=useState('IX');
 
  const Search=(e)=>{
   console.log(e.target.value)
@@ -239,8 +239,8 @@ export default function GetStudents() {
     {Students!=null&&Students&&Students.map((e,index) => {
                return(
 
-                <div className='studentcontainer'>
-                <Card key={index} className='studentcard' style={{display:'flex'}}>
+                <div key={index} className='studentcontainer'>
+                <Card  className='studentcard' style={{display:'flex'}}>
                 <CardContent className='cardcontent'>
                   <Typography sx={{ fontSize: 20 }} variant='h2' gutterBottom>
                     <Link

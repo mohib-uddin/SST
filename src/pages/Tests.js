@@ -28,8 +28,8 @@ const Tests = () => {
 
 
 
-    const [batch, setbatch] = React.useState('');
-    const [Row, setRow] = React.useState('');
+    const [batch, setbatch] = React.useState('IX');
+    const [Row, setRow] = React.useState([]);
 
 
     const handleChange = (event) => {

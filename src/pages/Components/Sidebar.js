@@ -38,7 +38,7 @@ function Sidebar(props) {
 
       <List >
         {[<Link className='link' href='/Add' >Add Students</Link>, <Link className='link' href='/GetStudents' >Get Students</Link>,  <Link className='link' href='/Tests' >Add A Test</Link>, <Link className='link' href='/ViewTest' >View Tests</Link>].map((text, index) => (
-          <ListItem className='list-item' key={text} disablePadding>
+          <ListItem className='list-item' key={index} disablePadding>
             <ListItemButton>
             <ListItemIcon className='icon'>
                 {index % 2 === 0 ? <PersonAddIcon /> : <PersonAddIcon />}
