@@ -62,12 +62,12 @@ const Add = () => {
   return (
     <div>
         <Sidebar></Sidebar>
-       <form onSubmit={SubmitHandler} style={{marginLeft:'30rem',display:'flex',flexDirection:'column',width:'30%',margin:'auto'}}   >
-       <TextField style={{marginTop:'1rem'}} onChange={NameChangeHandler} id="outlined-basic" label="Name" variant="outlined" />
-       <TextField style={{marginTop:'1rem'}} type='number' onChange={FeeChangeHandler} id="outlined-basic" label="Fee" variant="outlined" />
-       <TextField style={{marginTop:'1rem'}} onChange={ContactChangeHandler} id="outlined-basic" label="Contact" variant="outlined" />
-       <TextField style={{marginTop:'1rem'}} onChange={FatherContactChangeHandler} id="outlined-basic" label="FatherContact" variant="outlined" />
-       <TextField style={{marginTop:'1rem'}} onChange={BatchChangeHandler} id="outlined-basic" label="Batch" variant="outlined" />
+       <form onSubmit={SubmitHandler} className='StudentForm' >
+       <TextField className='StudentInput' style={{marginTop:'1rem'}} onChange={NameChangeHandler} id="outlined-basic" label="Name" variant="outlined" />
+       <TextField className='StudentInput'  style={{marginTop:'1rem'}} type='number' onChange={FeeChangeHandler} id="outlined-basic" label="Fee" variant="outlined" />
+       <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={ContactChangeHandler} id="outlined-basic" label="Contact" variant="outlined" />
+       <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={FatherContactChangeHandler} id="outlined-basic" label="FatherContact" variant="outlined" />
+       <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={BatchChangeHandler} id="outlined-basic" label="Batch" variant="outlined" />
 
        <Button className='submitbtn' type={'submit'} value='Add Student' variant="contained">Add Student</Button>
 

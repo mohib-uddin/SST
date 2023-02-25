@@ -177,7 +177,7 @@ const columns = [
 
         {row&& 
                 <DataGrid
-                style={{backgroundColor:'white',width:'50%',margin:'auto',marginTop:'1rem'}}
+                className='datagrid'
                 rows={row.Tests}
                 columns={columns}
                 getRowId={(row) => row.Title}
@@ -211,7 +211,7 @@ const columns = [
 
 
 
-            <div style={{width:'50%',margin:'auto',marginTop:'7rem'}}>
+            <div className='visualization'>
             <Line
                       datasetIdKey='id'
                       data={{

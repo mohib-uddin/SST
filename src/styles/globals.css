@@ -105,3 +105,142 @@
     width: 2rem;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+.StudentForm
+{
+    margin-left: 30rem;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: auto;
+}
+.StudentEdit
+{
+   background: white;
+   padding: 2rem;
+   margin-left: 30rem;
+   display: flex;
+   flex-direction: column;
+   width: 30%;
+   margin: auto;
+   margin-top: 5rem;
+}
+.FilterContainer
+{
+    width: 20%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+
+@media(max-width:900px)
+{
+
+    .FilterContainer
+    {
+        width: 80%;
+        flex-direction: column;
+    }
+    .StudentForm
+    {
+        width: 80%;
+    }
+    .StudentEdit
+    {
+        width: 80%;
+    }
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.TestForm
+{
+    margin-left: 30rem;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: auto;
+}
+
+.datagrid
+{
+    background-color: white;
+    width: 50%;
+    margin: auto;
+    margin-top: 1rem;
+
+
+}
+
+.visualization
+{
+  width: 50%;
+  margin: auto;
+  margin-top: 7rem;
+}
+.ResultContainer
+{
+  background-color: white;
+  width: 60%;
+  margin: auto;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+.resultgrid
+{
+    background: white;
+    width: 50%;
+    height: 30rem;
+    margin: auto;
+    margin-top: 1rem;
+
+}
+@media (max-width:900px) {
+
+    .TestForm
+    {
+        width: 80%;
+    }
+    
+    .datagrid
+    {
+        width: 100%;
+    }
+    .visualization
+    {
+        width: 90%;
+    }
+    .ResultContainer
+    {
+        width: 100%;
+    }
+    .resultgrid
+    {
+        width: 100%;
+    }
+}

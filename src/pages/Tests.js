@@ -218,7 +218,7 @@ const Tests = () => {
 
     
 
-   <form onSubmit={TestSubmitHandler} style={{marginLeft:'30rem',display:'flex',flexDirection:'column',width:'30%',margin:'auto'}}   >
+   <form onSubmit={TestSubmitHandler} className='TestForm'  >
 
    
 

@@ -147,11 +147,11 @@ export default function ViewTest() {
                   aria-describedby="modal-modal-description"
                 >
 
-                  <div  id='testresult' style={{background:'white',width:'60%',margin:'auto',padding:'2rem',marginTop:'2rem'}}>
+                  <div  id='testresult' className='ResultContainer'>
 
 
                   <DataGrid
-                   style={{backgroundColor:'white',width:'50%',height:'30rem',margin:'auto',marginTop:'1rem'}}
+                   className='resultgrid'
                     rows={Row}
                    
                     columns={columns}

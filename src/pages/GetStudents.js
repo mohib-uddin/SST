@@ -209,7 +209,7 @@ export default function GetStudents() {
     <Sidebar></Sidebar>
 
 
-    <Box style={{ width: '20%',margin:'auto',display:'flex'}}>
+    <Box className='FilterContainer'>
     <TextField style={{marginTop:'1rem'}} onChange={Search} id="outlined-basic" label="Search" variant="outlined" />
           <div>
           <InputLabel id="demo-simple-select-label">Batch</InputLabel>
@@ -282,7 +282,7 @@ export default function GetStudents() {
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
                 >
-                 <form  onSubmit={()=>{UpdateHandler()}} style={{background:"white",padding:'2rem',marginLeft:'30rem',display:'flex',flexDirection:'column',width:'30%',margin:'auto',marginTop:'5rem'}}   >
+    <form  onSubmit={()=>{UpdateHandler()}} className='StudentEdit' >
        <TextField style={{marginTop:'1rem'}} onChange={NameChangeHandler} id="outlined-basic" label="Name" variant="outlined" />
        <TextField style={{marginTop:'1rem'}} type='number' onChange={FeeChangeHandler} id="outlined-basic" label="Fee" variant="outlined" />
        <TextField style={{marginTop:'1rem'}} onChange={ContactChangeHandler} id="outlined-basic" label="Contact" variant="outlined" />
