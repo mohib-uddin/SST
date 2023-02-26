@@ -19,7 +19,6 @@ import  Router  from 'next/router';
 const StudentProgress=()=>{
 
   const {status,dData}=useSession();
-   console.log(session);
 
   //States For The Visualization
   const [Label,setLabel]=useState([]);
