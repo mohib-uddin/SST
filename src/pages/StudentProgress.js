@@ -13,9 +13,13 @@ import { Line,Bar, Chart} from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { useRouter } from 'next/router';
 import { textAlign } from '@mui/system';
-
+import { useSession } from 'next-auth/react';
+import  Router  from 'next/router';
 
 const StudentProgress=()=>{
+
+  const {status,dData}=useSession();
+   console.log(session);
 
   //States For The Visualization
   const [Label,setLabel]=useState([]);
@@ -51,9 +55,16 @@ const handleChange=(event)=>
 
 
   useEffect(()=>{
-   FetchApi();
+    if(status=='unauthenticated')
+    {
+      Router.replace("/auth/signin");
+    }
+    else
+    {
+      FetchApi();
+    }
 
-  },[])
+  },[status])
 
   const FetchApi=async()=>{
     let Options = {
@@ -166,77 +177,85 @@ const columns = [
 
 
       ];
+ 
 
-    return(
+      if(status=='authenticated')
+      {
 
-        <div>
-            <Sidebar></Sidebar>
-            <Box sx={{ height: 400, width: '100%' }}>
-             {row&&<h2 style={{textAlign:'center'}} >{row.Name}</h2>}
+        return(
 
-
-        {row&& 
-                <DataGrid
-                className='datagrid'
-                rows={row.Tests}
-                columns={columns}
-                getRowId={(row) => row.Title}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                disableSelectionOnClick
-                experimentalFeatures={{ newEditingApi: true }}
-            />}
-        </Box>
-
-
-        <Box style={{ width: '20%',margin:'auto',marginTop:'4rem' }}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Subject</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={Subject}
-            label="Subject"
-            onChange={handleChange}
-          >
-            <MenuItem value={'Maths'}>Maths</MenuItem>
-            <MenuItem value={'Chemistry'}>Chemistry</MenuItem>
-            <MenuItem value={'Physics'}>Physics</MenuItem>
-            <MenuItem value={'Computer'}>Computer</MenuItem>
+          <div>
+              <Sidebar></Sidebar>
+              <Box sx={{ height: 400, width: '100%' }}>
+               {row&&<h2 style={{textAlign:'center'}} >{row.Name}</h2>}
   
-          </Select>
-        </FormControl>
+  
+          {row&& 
+                  <DataGrid
+                  className='datagrid'
+                  rows={row.Tests}
+                  columns={columns}
+                  getRowId={(row) => row.Title}
+                  pageSize={5}
+                  rowsPerPageOptions={[5]}
+                  disableSelectionOnClick
+                  experimentalFeatures={{ newEditingApi: true }}
+              />}
+          </Box>
+  
+  
+          <Box style={{ width: '20%',margin:'auto',marginTop:'4rem' }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Subject</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={Subject}
+              label="Subject"
+              onChange={handleChange}
+            >
+              <MenuItem value={'Maths'}>Maths</MenuItem>
+              <MenuItem value={'Chemistry'}>Chemistry</MenuItem>
+              <MenuItem value={'Physics'}>Physics</MenuItem>
+              <MenuItem value={'Computer'}>Computer</MenuItem>
+    
+            </Select>
+          </FormControl>
+  
+        </Box>
+  
+  
+  
+              <div className='visualization'>
+              <Line
+                        datasetIdKey='id'
+                        data={{
+                          labels: Label,
+                          datasets: [
+                            {
+                              id: ID,
+                              label: '',
+                              data: Data,
+                            },
+                          
+                          ],
+                        }}
+                      />
+              </div>
+  
+  
+  
+             
+             
+  
+          </div>
+         
+      );
 
-      </Box>
 
-
-
-            <div className='visualization'>
-            <Line
-                      datasetIdKey='id'
-                      data={{
-                        labels: Label,
-                        datasets: [
-                          {
-                            id: ID,
-                            label: '',
-                            data: Data,
-                          },
-                        
-                        ],
-                      }}
-                    />
-            </div>
-
-
-
-           
-           
-
-        </div>
-       
-    );
-
+      }
+   
+     return <div>Loading</div>
 }
 
 export default StudentProgress;

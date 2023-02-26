@@ -13,12 +13,16 @@ import { TextField} from '@mui/material'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-
+import { useSession } from 'next-auth/react';
+import Router  from 'next/router';
 
 
 
 
 export default function GetStudents() {
+
+  const {status,data}=useSession();
+  
 
   const [CurrentID,setCurrentID]=useState('');
 
@@ -117,8 +121,14 @@ export default function GetStudents() {
 
  useEffect(()=>{
 
+  if(status=='unauthenticated')
+    {
+      Router.replace("/auth/signin");
+    }
+    else
+    {
 
-    let Options = {
+      let Options = {
         method:"GET",
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
@@ -137,6 +147,8 @@ export default function GetStudents() {
         });
 
         console.log(Students);
+
+    }
 
 
 
@@ -202,132 +214,138 @@ export default function GetStudents() {
 
 
 
+  if(status=='authenticated')
+  {
 
-   
-  return(
-    <div className='maincont'>
-    <Sidebar></Sidebar>
-
-
-    <Box className='FilterContainer'>
-    <TextField style={{marginTop:'1rem'}} onChange={Search} id="outlined-basic" label="Search" variant="outlined" />
-          <div>
-          <InputLabel id="demo-simple-select-label">Batch</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={Batch}
-            label="Batch"
-            onChange={handleChange}
-          >
-            <MenuItem value={'IX'}>IX</MenuItem>
-            <MenuItem value={'X'}>X</MenuItem>
-            <MenuItem value={'XI'}>XI</MenuItem>
-            <MenuItem value={'XII'}>XII</MenuItem>
+    return(
+      <div className='maincont'>
+      <Sidebar></Sidebar>
   
-          </Select>
-          </div>
-          
+  
+      <Box className='FilterContainer'>
+      <TextField style={{marginTop:'1rem'}} onChange={Search} id="outlined-basic" label="Search" variant="outlined" />
+            <div>
+            <InputLabel id="demo-simple-select-label">Batch</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={Batch}
+              label="Batch"
+              onChange={handleChange}
+            >
+              <MenuItem value={'IX'}>IX</MenuItem>
+              <MenuItem value={'X'}>X</MenuItem>
+              <MenuItem value={'XI'}>XI</MenuItem>
+              <MenuItem value={'XII'}>XII</MenuItem>
+    
+            </Select>
+            </div>
+            
+  
+        </Box>
+  
+  
+  
+  
+  
+      <div className='dataview'>
+      {Students!=null&&Students&&Students.map((e,index) => {
+                 return(
+  
+                  <div key={index} className='studentcontainer'>
+                  <Card  className='studentcard' style={{display:'flex'}}>
+                  <CardContent className='cardcontent'>
+                    <Typography sx={{ fontSize: 20 }} variant='h2' gutterBottom>
+                      <Link
+                        style={{textDecoration:'none',color:'white'}}
+                        href={{
+                          pathname: "/StudentProgress",
+                          query:{StudentName:e.Name,} , // the data
+                        }}
+                      >
+                      {e.Name}
+                      </Link>
+                    </Typography>
+                    <Typography sx={{ fontSize: 15}} variant='h2' gutterBottom>
+                      Fee: {e.Fee}
+                    </Typography>
+                   
+                    <Typography sx={{ fontSize: 15}} variant='h2' gutterBottom>
+                      Balance: {e.Balance}
+                    </Typography>
+  
+                    <Typography sx={{ fontSize: 15}} variant='h2' gutterBottom>
+                      Contact: {e.Contact}
+                    </Typography>
+                   
+                  </CardContent>
+                  <CardActions style={{margin:'auto'}} >
+                  <Button className='cardbtn' onClick={()=>{setOpen(true);setCurrentID(e)}}  style={{backgroundColor:'white',color:'black',margin:'1rem',margin:'auto'}} variant="contained">Edit</Button>
+  
+                  </CardActions>
+                </Card>
+  
+  
+  
+  
+                <div>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+      <form  onSubmit={()=>{UpdateHandler()}} className='StudentEdit' >
+         <TextField style={{marginTop:'1rem'}} onChange={NameChangeHandler} id="outlined-basic" label="Name" variant="outlined" />
+         <TextField style={{marginTop:'1rem'}} type='number' onChange={FeeChangeHandler} id="outlined-basic" label="Fee" variant="outlined" />
+         <TextField style={{marginTop:'1rem'}} onChange={ContactChangeHandler} id="outlined-basic" label="Contact" variant="outlined" />
+         <TextField style={{marginTop:'1rem'}} onChange={FatherContactChangeHandler} id="outlined-basic" label="FatherContact" variant="outlined" />
+         <TextField style={{marginTop:'1rem'}} onChange={BatchChangeHandler} id="outlined-basic" label="Batch" variant="outlined" />
+  
+         <Button className='submitbtn' type={'submit'} value='Add Student' variant="contained">Add Student</Button>
+  
+         </form>
+                  </Modal>
+                  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+                  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+                  
+                 );
+             })}
+      </div>
+  
+       
+      </div>
+    )
+  
 
-      </Box>
+  }
 
-
-
-
-
-    <div className='dataview'>
-    {Students!=null&&Students&&Students.map((e,index) => {
-               return(
-
-                <div key={index} className='studentcontainer'>
-                <Card  className='studentcard' style={{display:'flex'}}>
-                <CardContent className='cardcontent'>
-                  <Typography sx={{ fontSize: 20 }} variant='h2' gutterBottom>
-                    <Link
-                      style={{textDecoration:'none',color:'white'}}
-                      href={{
-                        pathname: "/StudentProgress",
-                        query:{StudentName:e.Name,} , // the data
-                      }}
-                    >
-                    {e.Name}
-                    </Link>
-                  </Typography>
-                  <Typography sx={{ fontSize: 15}} variant='h2' gutterBottom>
-                    Fee: {e.Fee}
-                  </Typography>
-                 
-                  <Typography sx={{ fontSize: 15}} variant='h2' gutterBottom>
-                    Balance: {e.Balance}
-                  </Typography>
-
-                  <Typography sx={{ fontSize: 15}} variant='h2' gutterBottom>
-                    Contact: {e.Contact}
-                  </Typography>
-                 
-                </CardContent>
-                <CardActions style={{margin:'auto'}} >
-                <Button className='cardbtn' onClick={()=>{setOpen(true);setCurrentID(e)}}  style={{backgroundColor:'white',color:'black',margin:'1rem',margin:'auto'}} variant="contained">Edit</Button>
-
-                </CardActions>
-              </Card>
-
-
-
-
-              <div>
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-    <form  onSubmit={()=>{UpdateHandler()}} className='StudentEdit' >
-       <TextField style={{marginTop:'1rem'}} onChange={NameChangeHandler} id="outlined-basic" label="Name" variant="outlined" />
-       <TextField style={{marginTop:'1rem'}} type='number' onChange={FeeChangeHandler} id="outlined-basic" label="Fee" variant="outlined" />
-       <TextField style={{marginTop:'1rem'}} onChange={ContactChangeHandler} id="outlined-basic" label="Contact" variant="outlined" />
-       <TextField style={{marginTop:'1rem'}} onChange={FatherContactChangeHandler} id="outlined-basic" label="FatherContact" variant="outlined" />
-       <TextField style={{marginTop:'1rem'}} onChange={BatchChangeHandler} id="outlined-basic" label="Batch" variant="outlined" />
-
-       <Button className='submitbtn' type={'submit'} value='Add Student' variant="contained">Add Student</Button>
-
-       </form>
-                </Modal>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                </div>
-
-
-
-
-
-
-
-
-
-                
-               );
-           })}
-    </div>
-
-     
-    </div>
-  )
-
+   return <div>Loading</div>
+  
 
 }

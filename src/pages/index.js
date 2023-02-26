@@ -4,8 +4,22 @@ import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 const inter = Inter({ subsets: ['latin'] })
 import Sidebar from './Components/Sidebar'
-
+import {signIn} from "next-auth/react";
+import { useEffect } from 'react'
+import Router from 'next/router'
+import { useSession } from 'next-auth/react'
 export default function Home() {
+
+  const {status,data}=useSession();
+
+  useEffect(()=>{
+     if(status=='unauthenticated')
+     {
+       Router.replace("/auth/signin");
+     }
+  },[status])
+
+
   return (
     <>
       <Head>

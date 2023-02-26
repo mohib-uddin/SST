@@ -8,6 +8,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useSession } from 'next-auth/react';
+import Router  from 'next/router';
 
 const TestData={
     Title:'',
@@ -21,7 +23,7 @@ const TestData={
 
 
 const Tests = () => {
-
+  const {status,data}=useSession();
 
 
 
@@ -94,30 +96,39 @@ const Tests = () => {
 
 
     useEffect(()=>{
+       
+      if(status=='unauthenticated')
+      {
+        Router.replace("/auth/signin");
+      }
 
-
+      else
+      {
         let Options = {
-            method:"GET",
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-            },
-          }
-      
-            fetch("/api/AddStudents", Options).then(res => {
-              if (!res.ok) {
-                throw Error('Failed To Fetch');
-              }
-              return res.json();
-            }).then(data => {
-            setStudents(data.students)
-            }).catch(err => {
-             console.log(err.message);
-            });
+          method:"GET",
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+        }
+    
+          fetch("/api/AddStudents", Options).then(res => {
+            if (!res.ok) {
+              throw Error('Failed To Fetch');
+            }
+            return res.json();
+          }).then(data => {
+          setStudents(data.students)
+          }).catch(err => {
+           console.log(err.message);
+          });
+  
+      }
+
+       
     
     
     
-    
-     },[])
+     },[status])
 
 
      const TitleChangeHandler=(e)=>{
@@ -211,67 +222,72 @@ const Tests = () => {
 
      }
 
-  return (
-    <div>
-    <Sidebar></Sidebar>
-
-
     
-
-   <form onSubmit={TestSubmitHandler} className='TestForm'  >
-
-   
-
-
-   <TextField style={{marginTop:'1rem'}} onChange={TitleChangeHandler}  id="outlined-basic" label="Title" variant="outlined" />
-   <TextField style={{marginTop:'1rem'}} onChange={BatchChangeHandler} id="outlined-basic" label="Batch" variant="outlined" />
-   <TextField style={{marginTop:'1rem'}} onChange={SubjectChangeHandler} id="outlined-basic" label="Subject" variant="outlined" />
-   <TextField style={{marginTop:'1rem'}} onChange={InstructorChangeHandler}  id="outlined-basic" label="Created By" variant="outlined" />
-   <TextField type={'number'} style={{marginTop:'1rem'}} onChange={MaxMarksChangeHandler}  id="outlined-basic" label="Max Marks" variant="outlined" />
-
-
-
-
-   <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Batch</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={batch}
-          label="Batch"
-          onChange={handleChange}
-        >
-          <MenuItem value={'IX'}>IX</MenuItem>
-          <MenuItem value={'X'}>X</MenuItem>
-          <MenuItem value={'XI'}>XI</MenuItem>
-          <MenuItem value={'XII'}>XII</MenuItem>
-
-        </Select>
-      </FormControl>
-    </Box>
-
-
-   <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={Row}
-        columns={columns}
-        getRowId={(row) => row._id}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        disableSelectionOnClick
-        experimentalFeatures={{ newEditingApi: true }}
-      />
-    </Box>
-
-   <Button className='submitbtn' type={'submit'} value='Add Student' variant="contained">Add Test</Button>
-
-   </form>
-
-</div>
-
-
-  )
+     if(status=='authenticated')
+     {
+      return (
+        <div>
+        <Sidebar></Sidebar>
+    
+    
+        
+    
+       <form onSubmit={TestSubmitHandler} className='TestForm'  >
+    
+       
+    
+    
+       <TextField style={{marginTop:'1rem'}} onChange={TitleChangeHandler}  id="outlined-basic" label="Title" variant="outlined" />
+       <TextField style={{marginTop:'1rem'}} onChange={BatchChangeHandler} id="outlined-basic" label="Batch" variant="outlined" />
+       <TextField style={{marginTop:'1rem'}} onChange={SubjectChangeHandler} id="outlined-basic" label="Subject" variant="outlined" />
+       <TextField style={{marginTop:'1rem'}} onChange={InstructorChangeHandler}  id="outlined-basic" label="Created By" variant="outlined" />
+       <TextField type={'number'} style={{marginTop:'1rem'}} onChange={MaxMarksChangeHandler}  id="outlined-basic" label="Max Marks" variant="outlined" />
+    
+    
+    
+    
+       <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Batch</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={batch}
+              label="Batch"
+              onChange={handleChange}
+            >
+              <MenuItem value={'IX'}>IX</MenuItem>
+              <MenuItem value={'X'}>X</MenuItem>
+              <MenuItem value={'XI'}>XI</MenuItem>
+              <MenuItem value={'XII'}>XII</MenuItem>
+    
+            </Select>
+          </FormControl>
+        </Box>
+    
+    
+       <Box sx={{ height: 400, width: '100%' }}>
+          <DataGrid
+            rows={Row}
+            columns={columns}
+            getRowId={(row) => row._id}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            disableSelectionOnClick
+            experimentalFeatures={{ newEditingApi: true }}
+          />
+        </Box>
+    
+       <Button className='submitbtn' type={'submit'} value='Add Student' variant="contained">Add Test</Button>
+    
+       </form>
+    
+    </div>
+    
+    
+      )
+     }
+  return <div>Loading</div>
 }
 
 export default Tests;

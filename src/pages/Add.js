@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Sidebar from './Components/Sidebar'
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
-
+import { useSession } from 'next-auth/react';
+import  Router from 'next/router';
 
 const Add = () => {
+  const {status,data}=useSession();
+
+      useEffect(()=>{
+        if(status=='unauthenticated')
+        {
+          Router.replace("/auth/signin");
+        }
+
+      },[status])
 
   let Data={
     Name:'',
@@ -58,23 +68,29 @@ const Add = () => {
 
   }
 
+  if(status=='authenticated')
+  {
 
-  return (
-    <div>
-        <Sidebar></Sidebar>
-       <form onSubmit={SubmitHandler} className='StudentForm' >
-       <TextField className='StudentInput' style={{marginTop:'1rem'}} onChange={NameChangeHandler} id="outlined-basic" label="Name" variant="outlined" />
-       <TextField className='StudentInput'  style={{marginTop:'1rem'}} type='number' onChange={FeeChangeHandler} id="outlined-basic" label="Fee" variant="outlined" />
-       <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={ContactChangeHandler} id="outlined-basic" label="Contact" variant="outlined" />
-       <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={FatherContactChangeHandler} id="outlined-basic" label="FatherContact" variant="outlined" />
-       <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={BatchChangeHandler} id="outlined-basic" label="Batch" variant="outlined" />
+    return (
+      <div>
+          <Sidebar></Sidebar>
+         <form onSubmit={SubmitHandler} className='StudentForm' >
+         <TextField className='StudentInput' style={{marginTop:'1rem'}} onChange={NameChangeHandler} id="outlined-basic" label="Name" variant="outlined" />
+         <TextField className='StudentInput'  style={{marginTop:'1rem'}} type='number' onChange={FeeChangeHandler} id="outlined-basic" label="Fee" variant="outlined" />
+         <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={ContactChangeHandler} id="outlined-basic" label="Contact" variant="outlined" />
+         <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={FatherContactChangeHandler} id="outlined-basic" label="FatherContact" variant="outlined" />
+         <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={BatchChangeHandler} id="outlined-basic" label="Batch" variant="outlined" />
+  
+         <Button className='submitbtn' type={'submit'} value='Add Student' variant="contained">Add Student</Button>
+  
+         </form>
+  
+      </div>
+    )
 
-       <Button className='submitbtn' type={'submit'} value='Add Student' variant="contained">Add Student</Button>
+  };
+  return <div>Loading</div>
 
-       </form>
-
-    </div>
-  )
 }
 
 export default Add

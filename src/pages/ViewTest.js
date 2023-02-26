@@ -15,6 +15,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import JsPDF from 'jspdf';
+import { useSession } from 'next-auth/react';
+import  Router  from 'next/router';
 
 const generatePDF = () => {
 
@@ -27,7 +29,7 @@ const generatePDF = () => {
 
 export default function ViewTest() {
 
-
+  const {status,data}=useSession();
   
 
 
@@ -75,32 +77,43 @@ export default function ViewTest() {
 
 
  useEffect(()=>{
-
-
-    let Options = {
-        method:"GET",
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
+      if(status=='unauthenticated')
+      {
+        Router.replace("/auth/signin");
       }
+
+      else
+      {
+        let Options = {
+          method:"GET",
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+        }
+    
+          fetch("/api/AddTests", Options).then(res => {
+            if (!res.ok) {
+              throw Error('Failed To Fetch');
+            }
+            return res.json();
+          }).then(data => {
+           setTest(data.tests)
+          }).catch(err => {
+           console.log(err.message);
+          });
   
-        fetch("/api/AddTests", Options).then(res => {
-          if (!res.ok) {
-            throw Error('Failed To Fetch');
-          }
-          return res.json();
-        }).then(data => {
-         setTest(data.tests)
-        }).catch(err => {
-         console.log(err.message);
-        });
+          console.log(Test);
+      }
 
-        console.log(Test);
+    
 
 
 
- },[])
+ },[status])
    
+
+ if(status=='authenticated')
+ {
   return(
     <div className='maincont'>
     <Sidebar></Sidebar>
@@ -207,5 +220,7 @@ export default function ViewTest() {
     </div>
   )
 
-
+ }
+  
+return <div>Loading</div>
 }
