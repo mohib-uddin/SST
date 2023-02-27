@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import { textAlign } from '@mui/system';
 import { useSession } from 'next-auth/react';
 import  Router  from 'next/router';
+import { CircularProgress } from '@mui/material';
 
 const StudentProgress=()=>{
 
@@ -254,7 +255,7 @@ const columns = [
 
       }
    
-     return <div>Loading</div>
-}
+      return       <CircularProgress style={{color:'#3D4E81',margin:'auto',marginTop:'2rem'}} />
+    }
 
 export default StudentProgress;

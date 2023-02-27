@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useSession } from 'next-auth/react';
 import Router  from 'next/router';
+import { CircularProgress } from '@mui/material';
 
 
 
@@ -218,6 +219,10 @@ export default function GetStudents() {
   {
 
     return(
+
+      
+  
+
       <div className='maincont'>
       <Sidebar></Sidebar>
   
@@ -244,9 +249,10 @@ export default function GetStudents() {
   
         </Box>
   
-  
-  
-  
+         
+      {Students.length<1&&<div style={{margin:'auto',width:'20%',padding:'5rem'}}>
+      <CircularProgress style={{color:'#3D4E81'}} />
+      </div>}
   
       <div className='dataview'>
       {Students!=null&&Students&&Students.map((e,index) => {
@@ -345,7 +351,7 @@ export default function GetStudents() {
 
   }
 
-   return <div>Loading</div>
+  return       <CircularProgress style={{color:'#3D4E81',margin:'auto',marginTop:'2rem'}} />
   
 
 }

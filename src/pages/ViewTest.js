@@ -17,7 +17,7 @@ import Select from '@mui/material/Select';
 import JsPDF from 'jspdf';
 import { useSession } from 'next-auth/react';
 import  Router  from 'next/router';
-
+import { CircularProgress } from '@mui/material';
 const generatePDF = () => {
 
   const report = new JsPDF('landscape','pt','a4');
@@ -222,5 +222,5 @@ export default function ViewTest() {
 
  }
   
-return <div>Loading</div>
+ return       <CircularProgress style={{color:'#3D4E81',margin:'auto',marginTop:'2rem'}} />
 }

@@ -10,6 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useSession } from 'next-auth/react';
 import Router  from 'next/router';
+import { CircularProgress } from '@mui/material';
 
 const TestData={
     Title:'',
@@ -287,7 +288,7 @@ const Tests = () => {
     
       )
      }
-  return <div>Loading</div>
-}
+     return       <CircularProgress style={{color:'#3D4E81',margin:'auto',marginTop:'2rem'}} />
+    }
 
 export default Tests;

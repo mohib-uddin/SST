@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {signIn} from "next-auth/react";
 import { TextField,Button } from '@mui/material';
 import logo from './logo.jpg'
 import Image from 'next/image';
+import  Router  from 'next/router';
+import { useSession } from 'next-auth/react';
+
 const UserObj={
     username:'',
     password:'',
@@ -11,7 +14,15 @@ const UserObj={
 
 
 const signin = () => {
+  const {status,data}=useSession();
+   useEffect(()=>{
+    if(status=='authenticated')
+    {
+      Router.replace("/");
+    }
+   },[status])
 
+   
     const NameChangeHandler=(e)=>{
         UserObj.username=e.target.value;
     }

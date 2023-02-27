@@ -4,6 +4,8 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import  Router from 'next/router';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const Add = () => {
   const {status,data}=useSession();
@@ -89,7 +91,8 @@ const Add = () => {
     )
 
   };
-  return <div>Loading</div>
+  return       <CircularProgress style={{color:'#3D4E81',margin:'auto',marginTop:'2rem'}} />
+
 
 }
 
