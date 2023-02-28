@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
 import Sidebar from './Components/Sidebar'
-import { TextField,Button} from '@mui/material'
+import { TextField,Button, Grid} from '@mui/material'
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import InputLabel from '@mui/material/InputLabel';
@@ -11,6 +11,14 @@ import Select from '@mui/material/Select';
 import { useSession } from 'next-auth/react';
 import Router  from 'next/router';
 import { CircularProgress } from '@mui/material';
+
+
+
+const PreEng=['Maths','Physics','Chemistry'];
+const CS=['Maths','Physics','Computer'];
+const PM=['Biology','Physics','Chemistry'];
+
+
 
 const TestData={
     Title:'',
@@ -26,6 +34,7 @@ const TestData={
 const Tests = () => {
   const {status,data}=useSession();
 
+    const [GridValue,setGridValue]=useState({});
 
 
 
@@ -49,7 +58,13 @@ const Tests = () => {
 
     
 
-    const setMarks=(e,Std)=>{
+    const setMarks=(e,Std,index)=>{
+      const NewMarksValues={...GridValue,[index]:e.target.value}
+       setGridValue(NewMarksValues);
+       console.log(GridValue);
+
+
+
         console.log(e.target.value);
         console.log(Std.Name);
         let found=false;
@@ -68,7 +83,7 @@ const Tests = () => {
         console.log(TestData);
     }
 
-    const [Students,setStudents]=useState('');
+    const [Students,setStudents]=useState([]);
 
 
     const columns = [
@@ -85,9 +100,11 @@ const Tests = () => {
             field: 'Marks',
             headerName: 'Marks',
             width: 150,
-            renderCell:(cellValues)=>{return(
+            renderCell:(cellValues)=>{
+              const index=cellValues.row._id;
+              return(
         
-                <TextField type={'number'} onChange={(e)=>setMarks(e,cellValues.row)} style={{marginTop:'1rem'}}  id="outlined-basic" label="Marks" variant="outlined" />
+                <TextField type={'number'} value={GridValue[index]||''} onChange={(e)=>setMarks(e,cellValues.row,index)} style={{marginTop:'1rem'}}  id="outlined-basic" label="Marks" variant="outlined" />
              
             ) }
           },

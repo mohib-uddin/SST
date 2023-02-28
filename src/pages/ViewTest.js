@@ -16,15 +16,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import JsPDF from 'jspdf';
 import { useSession } from 'next-auth/react';
+import autoTable from 'jspdf-autotable';
 import  Router  from 'next/router';
 import { CircularProgress } from '@mui/material';
-const generatePDF = () => {
-
-  const report = new JsPDF('landscape','pt','a4');
-  report.html(document.querySelector('#testresult')).then(() => {
-      report.save('report.pdf');
-  });
-}
 
 
 export default function ViewTest() {
@@ -64,14 +58,45 @@ export default function ViewTest() {
         headerName: 'Status',
         renderCell:(cellValues)=>{return(
 
-          (cellValues.row.Marks/Test[0].MaxMarks<0.5) ? <p style={{color:'red'}}>Fail</p> : <p style={{color:'green'}}>Pass</p>
+          (cellValues.row.Marks/Row.MaxMarks<0.5) ? <p style={{color:'red'}}>Fail</p> : <p style={{color:'green'}}>Pass</p>
       ) },
         width: 150,
       },
 
   ];
   
+  function generatePDF() {
+    const doc = new JsPDF();
+ 
+    // Define the columns and rows to be used in the PDF
+    const headers = columns.map((column) => column.headerName);
+    const data = Row.Students.map((row) => columns.map((column) => {
 
+      if (column.field === "Status") {
+        
+        if(row.Marks/Row.MaxMarks<0.5)
+        {
+          return "Fail";
+        }
+        else
+        {
+          return "Pass";
+        }
+    }
+    return row[column.field];
+    
+    
+    }));
+  
+    // Generate the table in the PDF
+    doc.autoTable({
+      head: [headers],
+      body: data,
+    });
+  
+    // Save the PDF
+    doc.save("datagrid.pdf");
+  }
 
 
 
@@ -142,7 +167,7 @@ export default function ViewTest() {
                  
                 </CardContent>
                 <CardActions style={{margin:'auto'}} >
-                <Button onClick={()=>{setOpen(true);setRow(e.Students)}}  style={{backgroundColor:'white',color:'black',margin:'1rem',margin:'auto'}} variant="contained">View</Button>
+                <Button onClick={()=>{setOpen(true);setRow(e)}}  style={{backgroundColor:'white',color:'black',margin:'1rem',margin:'auto'}} variant="contained">View</Button>
 
                 </CardActions>
               </Card>
@@ -165,18 +190,20 @@ export default function ViewTest() {
 
                   <DataGrid
                    className='resultgrid'
-                    rows={Row}
-                   
+                    rows={Row.Students}
+                    style={{height:'32rem'}}
                     columns={columns}
                     getRowId={(row) => row.Name}
                     pageSize={10}
-                    rowsPerPageOptions={[5]}
+                    rowsPerPageOptions={[10]}
                     disableSelectionOnClick
                     experimentalFeatures={{ newEditingApi: true }}
                 />
 
+                  <div style={{margin:'auto',width:'20%'}}>
+                  <Button  onClick={generatePDF} className='submitbtn' type={'submit'} value='Add Student' variant="contained">Add Student</Button>
 
-                  <Button style={{margin:'auto'}} onClick={generatePDF} className='submitbtn' type={'submit'} value='Add Student' variant="contained">Add Student</Button>
+                  </div>
 
                   </div>
                    

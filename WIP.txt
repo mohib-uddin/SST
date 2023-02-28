@@ -1,0 +1,3 @@
+1) Add Different Batches And Subjects Compatibility
+2) Fix The Datagrid Input Value Dissapear
+3) Student View And Transcript Generation
