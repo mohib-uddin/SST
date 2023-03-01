@@ -266,7 +266,7 @@ export default function GetStudents() {
                         style={{textDecoration:'none',color:'white'}}
                         href={{
                           pathname: "/StudentProgress",
-                          query:{StudentName:e.Name,} , // the data
+                          query:{StudentContact:e.Contact,} , // the data
                         }}
                       >
                       {e.Name}

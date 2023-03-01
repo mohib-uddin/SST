@@ -31,7 +31,7 @@ const StudentProgress=()=>{
   
 const router = useRouter();
 const data = router.query;
-console.log(data.StudentName);
+console.log(data.StudentContact);
 
 
 const handleChange=(event)=>
@@ -55,15 +55,7 @@ const handleChange=(event)=>
 
 
   useEffect(()=>{
-    if(status=='unauthenticated')
-    {
-      Router.replace("/auth/signin");
-    }
-    else
-    {
       FetchApi();
-    }
-
   },[status])
 
   const FetchApi=async()=>{
@@ -72,7 +64,7 @@ const handleChange=(event)=>
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body:JSON.stringify({Name:data.StudentName})
+      body:JSON.stringify({Contact:data.StudentContact})
     }
     fetch("/api/GetAStudentQuery", Options).then(res => {
         if (!res.ok) {
@@ -255,7 +247,70 @@ const columns = [
 
       }
    
-      return       <CircularProgress style={{color:'#3D4E81',margin:'auto',marginTop:'2rem'}} />
+      return (<div>
+        <Box sx={{ height: 400, width: '100%' }}>
+         {row&&<h2 style={{textAlign:'center'}} >{row.Name}</h2>}
+
+
+    {row&& 
+            <DataGrid
+            className='datagrid'
+            rows={row.Tests}
+            columns={columns}
+            getRowId={(row) => row.Title}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            disableSelectionOnClick
+            experimentalFeatures={{ newEditingApi: true }}
+        />}
+    </Box>
+
+
+    <Box style={{ width: '20%',margin:'auto',marginTop:'4rem' }}>
+    <FormControl fullWidth>
+      <InputLabel id="demo-simple-select-label">Subject</InputLabel>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={Subject}
+        label="Subject"
+        onChange={handleChange}
+      >
+        <MenuItem value={'Maths'}>Maths</MenuItem>
+        <MenuItem value={'Chemistry'}>Chemistry</MenuItem>
+        <MenuItem value={'Physics'}>Physics</MenuItem>
+        <MenuItem value={'Computer'}>Computer</MenuItem>
+
+      </Select>
+    </FormControl>
+
+  </Box>
+
+
+
+        <div className='visualization'>
+        <Line
+                  datasetIdKey='id'
+                  data={{
+                    labels: Label,
+                    datasets: [
+                      {
+                        id: ID,
+                        label: '',
+                        data: Data,
+                      },
+                    
+                    ],
+                  }}
+                />
+        </div>
+
+
+
+       
+       
+
+    </div>)
     }
 
 export default StudentProgress;
