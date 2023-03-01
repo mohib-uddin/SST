@@ -45,6 +45,7 @@ const Tests = () => {
 
 
     const handleChange = (event) => {
+      setbatch(event.target.value);
         let Edit=[]
 
       Students.filter((e)=>{
