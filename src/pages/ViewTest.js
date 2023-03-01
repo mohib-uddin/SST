@@ -201,7 +201,7 @@ export default function ViewTest() {
                 />
 
                   <div style={{margin:'auto',width:'20%'}}>
-                  <Button  onClick={generatePDF} className='submitbtn' type={'submit'} value='Add Student' variant="contained">Add Student</Button>
+                  <Button  onClick={generatePDF} className='submitbtn' type={'submit'} value='Download Test Pdf' variant="contained">Add Student</Button>
 
                   </div>
 
