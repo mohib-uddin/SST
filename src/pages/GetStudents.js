@@ -159,6 +159,7 @@ export default function GetStudents() {
  const handleChange=(e)=>{
 
   setStudents('');
+  setBatch(e.target.value);
  
   let Options = {
     method:"POST",
