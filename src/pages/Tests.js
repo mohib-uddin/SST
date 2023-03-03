@@ -10,14 +10,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useSession } from 'next-auth/react';
 import Router  from 'next/router';
+import Swal from 'sweetalert2';
 import { CircularProgress } from '@mui/material';
-
-
-
-const PreEng=['Maths','Physics','Chemistry'];
-const CS=['Maths','Physics','Computer'];
-const PM=['Biology','Physics','Chemistry'];
-
+import Courses from "../Courses.json"
 
 
 const TestData={
@@ -48,12 +43,54 @@ const Tests = () => {
       setbatch(event.target.value);
         let Edit=[]
 
-      Students.filter((e)=>{
+        if(TestData.Subject=='')
+        {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please Enter The Test Subject First!',
+          })
+        }
+        else
+        {  
+          Students.forEach((e) => {
+          const { Batch,Major} = e;
+          if(Major=='PE'||Major=='CS'||Major=='PM'||Major=='GEN')
+          {
+            const flag = Courses[Major].includes(TestData.Subject);
+
+            if(flag==true&&Batch==event.target.value)
+            {
+              Edit.push(e);
+            }
+          }
+        
+        });
+
+        }
+
+       
+      /*Students.filter((e)=>{
+
         if(e.Batch==event.target.value)
         {
-            Edit.push(e);
+            let flag=false;
+            Courses[e.Major].map((item)=>{
+                if(item==TestData.Subject)
+                {
+                  flag=true;
+                }
+            })
+            if(flag==true)
+            {
+              Edit.push(e);
+            }
         }
-      })
+      })*/
+
+     
+
+
       setRow(Edit);
     }
 
@@ -236,7 +273,12 @@ const Tests = () => {
       
             })
 
-
+            Swal.fire({
+              icon: 'success',
+              title: 'Test Added Successfully',
+              showConfirmButton: false,
+              timer: 1500
+            })
 
 
      }

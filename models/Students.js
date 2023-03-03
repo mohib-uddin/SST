@@ -8,6 +8,7 @@ const StudentSchema=new mongoose.Schema({
     Balance:{type:Number,required:'true'},
     Contact:{type:String,required:'true'},
     Batch:{type:String,required:'true'},
+    Major:{type:String,required:'true'},
     FatherContact:{type:String},
     Tests:[
         /*{

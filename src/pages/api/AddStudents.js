@@ -18,6 +18,7 @@ const handler=async (req, res)=>{
             Balance:req.body.Balance,
             Contact:req.body.Contact,
             Batch:req.body.Batch,
+            Major:req.body.Major,
             FatherContact:req.body.FatherContact,
             Tests:[],
       

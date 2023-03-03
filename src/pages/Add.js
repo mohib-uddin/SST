@@ -1,10 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import Sidebar from './Components/Sidebar'
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Button,Box,MenuItem,Select,FormControl,InputLabel} from '@mui/material';
 import { useSession } from 'next-auth/react';
 import  Router from 'next/router';
 import CircularProgress from '@mui/material/CircularProgress';
+
+  
+
+let Data={
+  Name:'',
+  FeeStatus:true,
+  Fee:3000,
+  Balance:0,
+  Contact:'',
+  FatherContact:'',
+}
 
 
 const Add = () => {
@@ -18,15 +29,23 @@ const Add = () => {
 
       },[status])
 
-  let Data={
-    Name:'',
-    FeeStatus:true,
-    Fee:3000,
-    Balance:0,
-    Contact:'',
-    Batch:'',
-    FatherContact:'',
-  }
+    
+
+
+    const [StdBatch,setBatch]=useState('IX');
+    const [StdMajor,setMajor]=useState('CS');
+
+
+  
+
+    const BatchChange=(e)=>{
+       setBatch(e.target.value);
+    }
+    const MajorChange=(e)=>{
+      setMajor(e.target.value);
+   }
+
+
   const NameChangeHandler=(e)=>{
     Data.Name=e.target.value;
   }
@@ -40,21 +59,22 @@ const Add = () => {
   const FatherContactChangeHandler=(e)=>{
     Data.FatherContact=e.target.value;
   }
-  const BatchChangeHandler=(e)=>{
-    Data.Batch=e.target.value;
-  }
-  
 
 
   const SubmitHandler=(e)=>{
-    console.log(Data);
+    const Payload={
+      ...Data,
+      Batch:StdBatch,
+      Major:StdMajor,
+    }
+    console.log(Payload);
     e.preventDefault();
     let Options = {
       method:"POST",
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body:JSON.stringify(Data)
+      body:JSON.stringify(Payload)
     }
 
       fetch("/api/AddStudents", Options).then(res => {
@@ -81,8 +101,44 @@ const Add = () => {
          <TextField className='StudentInput'  style={{marginTop:'1rem'}} type='number' onChange={FeeChangeHandler} id="outlined-basic" label="Fee" variant="outlined" />
          <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={ContactChangeHandler} id="outlined-basic" label="Contact" variant="outlined" />
          <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={FatherContactChangeHandler} id="outlined-basic" label="FatherContact" variant="outlined" />
-         <TextField  className='StudentInput' style={{marginTop:'1rem'}} onChange={BatchChangeHandler} id="outlined-basic" label="Batch" variant="outlined" />
-  
+
+         <Box sx={{ minWidth: 120 }} style={{marginTop:'1rem'}}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Batch</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={StdBatch}
+              label="Batch"
+              onChange={BatchChange}
+            >
+              <MenuItem value={'IX'}>IX</MenuItem>
+              <MenuItem value={'X'}>X</MenuItem>
+              <MenuItem value={'XI'}>XI</MenuItem>
+              <MenuItem value={'XII'}>XII</MenuItem>
+    
+            </Select>
+          </FormControl>
+        </Box>
+
+         <Box sx={{ minWidth: 120 }} style={{marginTop:'1rem'}}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Group</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={StdMajor}
+              label="Major"
+              onChange={MajorChange}
+            >
+              <MenuItem value={'PE'}>Pre Engineering</MenuItem>
+              <MenuItem value={'CS'}>Computer Science</MenuItem>
+              <MenuItem value={'PM'}>Pre Medical</MenuItem>
+              <MenuItem value={'Gen'}>General</MenuItem>
+    
+            </Select>
+          </FormControl>
+        </Box>
          <Button className='submitbtn' type={'submit'} value='Add Student' variant="contained">Add Student</Button>
   
          </form>
