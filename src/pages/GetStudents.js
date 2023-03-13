@@ -16,7 +16,8 @@ import Select from '@mui/material/Select';
 import { useSession } from 'next-auth/react';
 import Router  from 'next/router';
 import { CircularProgress } from '@mui/material';
-
+import CloseIcon from '@mui/icons-material/Close';
+import Swal from 'sweetalert2';
 
 
 
@@ -64,7 +65,26 @@ export default function GetStudents() {
 
  const DeleteHandler=(e)=>{
 
-  console.log(e)
+  
+    Swal.fire({
+      icon: 'success',
+      title: 'Student Deleted Successfully',
+      showConfirmButton: false,
+      timer: 1500
+    })
+
+
+
+    Swal.fire({
+      title: 'Delete Student?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        console.log(e)
   let Options = {
     method:"DELETE",
     headers: {
@@ -84,6 +104,23 @@ export default function GetStudents() {
     }).catch(err => {
      console.log(err.message);
     });
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Student Deleted Successfully',
+      showConfirmButton: false,
+      timer: 1500
+    })
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+
+
+
+
+
+
 
  }
 
@@ -261,6 +298,7 @@ export default function GetStudents() {
   
                   <div key={index} className='studentcontainer'>
                   <Card  className='studentcard' style={{display:'flex'}}>
+                  <CloseIcon style={{cursor:'pointer'} } onClick={()=>DeleteHandler(e)}></CloseIcon>
                   <CardContent className='cardcontent'>
                     <Typography sx={{ fontSize: 20 }} variant='h2' gutterBottom>
                       <Link
