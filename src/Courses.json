@@ -1,7 +1,20 @@
 
 {
-    "PE":["Maths","Physics","Chemistry"],
-    "PM":["Biology","Physics","Chemistry"],
-    "CS":["Maths","Physics","Computer"],
-    "GEN":["English","PST","Urdu","Maths","Science","Islamiat"]
+    "XI-PE":["Maths","Physics","Chemistry"],
+    "XI-PM":["Biology","Physics","Chemistry"],
+    "XI-CS":["Maths","Physics","Computer"],
+
+    "XII-PE":["Maths","Physics","Chemistry"],
+    "XII-PM":["Biology","Physics","Chemistry"],
+    "XII-CS":["Maths","Physics","Computer"],
+
+    "IX-GEN":["Economics","Civics","Science","Maths","English","Islamiat","Urdu"],
+    "IX-Computer":["Maths","Physics","Chemistry","Islamiat","Computer","English","Urdu"],
+    "IX-Biology":["Maths","Physics","Chemistry","Islamiat","Biology","English","Urdu"],
+
+    "X-GEN":["Economics","Civics","Science","Maths","English","PST","Sindhi"],
+    "X-Computer":["Maths","Physics","Chemistry","Sindhi","Computer","English","PST"],
+    "X-Biology":["Maths","Physics","Chemistry","Sindhi","Biology","English","PST"]
+
+
 }

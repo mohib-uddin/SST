@@ -53,11 +53,18 @@ const Tests = () => {
         }
         else
         {  
+          
           Students.forEach((e) => {
           const { Batch,Major} = e;
-          if(Major=='PE'||Major=='CS'||Major=='PM'||Major=='GEN')
+          if(Major=='PE'||Major=='CS'||Major=='PM'||Major=='GEN'||Major=='Computer'||Major=='Biology')
           {
-            const flag = Courses[Major].includes(TestData.Subject);
+            let Pattern=Batch+'-'+Major;
+            let flag;
+            if(Courses[Pattern])
+            {
+              flag = Courses[Pattern].includes(TestData.Subject);
+
+            }
 
             if(flag==true&&Batch==event.target.value)
             {
