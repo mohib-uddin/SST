@@ -312,8 +312,9 @@ export default function GetStudents() {
                       </Link>
                     </Typography>
                     <Typography sx={{ fontSize: 15}} variant='h2' gutterBottom>
-                      Fee: {e.Fee}
+                      Roll No: {e.RollNo}
                     </Typography>
+
                    
                     <Typography sx={{ fontSize: 15}} variant='h2' gutterBottom>
                       Balance: {e.Balance}

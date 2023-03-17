@@ -1,3 +1,7 @@
+body{
+    color: white;
+}
+
 .logincont
 {
     display: flex;
@@ -13,12 +17,16 @@
     margin: auto;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 2rem;
+
 }
 .logindesc
 {
     width: 50%;
     background-image: linear-gradient(-225deg, #3D4E81 0%, #5753C9 48%, #6E7FF3 100%);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background: linear-gradient(to right, #06beb6, #06beb6);
+    background: #24252A    ;
+    background: hsl(220.5, 100%, 50.6%);
 
 }
 
@@ -61,6 +69,10 @@
     color: white;
     margin-top: 1rem;
     background-image: linear-gradient(-225deg, #3D4E81 0%, #5753C9 48%, #6E7FF3 100%);
+    background: linear-gradient(to right, #141e30, #243b55);
+    background: linear-gradient(to right, #06beb6, #06beb6);
+    background: hsl(220.5, 100%, 50.6%);
+
 }
 
 
@@ -70,16 +82,26 @@
 }
 .studentcard
 {
-    height: 140px;
+    height: 150px;
     width: 100%;
     background-color: royalblue;
     color: white;
     margin:auto;
     background-image: linear-gradient(-225deg, #3D4E81 0%, #5753C9 48%, #6E7FF3 100%);
-
+    background: linear-gradient(to right, #141e30, #243b55);
+        background: linear-gradient(to right,#F6F1F1, #19A7CE,#146C94,        );
+      background: #F6F1F1;
+      background-color: #19A7CE;
+      background-color: #19A7CE;
     color:whitesmoke;
     margin-top: 1rem;
     display: flex;
+    background-color: #24252A    ;
+    background: #3A1078;
+    background: #3D4E81;
+    background: hsl(220.5, 100%, 50.6%);
+    
+
     
 }
 .cardcontent
@@ -115,7 +137,8 @@
     }
     .studentcard
     {
-        width: 80%;
+        width: 90%;
+        height: 160px;
     }
     .cardcontent
 {
@@ -134,23 +157,23 @@
     text-decoration: none;
     color: #344767;
     font-size: 1rem;
+    color: whitesmoke;
 }
 
 .list-item
 {
     margin: auto;
     width: 90%;
-    margin-top: 1rem;
-    border-radius: .5rem;
-    padding: .5rem;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
+    margin-top: 2rem;
 }
+
+
 .icon
 {
     
     padding: .3rem;
     width: 2rem;
+    color: whitesmoke;
 
 }
 

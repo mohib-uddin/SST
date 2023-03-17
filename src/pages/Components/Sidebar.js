@@ -17,9 +17,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link'
-
+import { Paper } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-
+import GridViewIcon from '@mui/icons-material/GridView';
+import QuizIcon from '@mui/icons-material/Quiz';
+import GradingIcon from '@mui/icons-material/Grading';
 const drawerWidth = 240;
 
 function Sidebar(props) {
@@ -33,15 +35,17 @@ function Sidebar(props) {
   const drawer = (
     <div>
       <Toolbar />
-      <Divider />
 
 
       <List >
         {[<Link className='link' href='/Add' >Add Students</Link>, <Link className='link' href='/GetStudents' >Get Students</Link>,  <Link className='link' href='/Tests' >Add A Test</Link>, <Link className='link' href='/ViewTest' >View Tests</Link>].map((text, index) => (
-          <ListItem className='list-item' key={index} disablePadding>
+          <ListItem  className='list-item' key={index} disablePadding>
             <ListItemButton>
             <ListItemIcon className='icon'>
-                {index % 2 === 0 ? <PersonAddIcon /> : <PersonAddIcon />}
+                {index=== 0 && <PersonAddIcon />}
+                {index=== 1 &&<GridViewIcon />}
+                {index=== 2 &&<QuizIcon />}
+                {index=== 3 &&<GradingIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -51,7 +55,6 @@ function Sidebar(props) {
 
 
 
-      <Divider />
       
     </div>
   );
@@ -69,7 +72,7 @@ function Sidebar(props) {
         }}
       >  
       
-        <Toolbar style={{backgroundImage: "linear-gradient(-225deg, #3D4E81 0%, #5753C9 48%, #6E7FF3 100%)"}}>
+        <Toolbar style={{background: '#24252A',color:'white'}}>
           {/*background: "linear-gradient(to right, #E100FF, #7F00FF)"*/}
           <IconButton
             color="inherit"
@@ -105,7 +108,15 @@ function Sidebar(props) {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
-          {drawer}
+         <Paper
+        style={{ background: '#24252A',height:'100%' }} // set your desired background color
+        elevation={0} // remove the default box shadow
+        square // remove the default rounded corners
+      >
+                  {drawer}
+
+      </Paper>
+
         </Drawer>
         <Drawer
           variant="permanent"
@@ -116,7 +127,14 @@ function Sidebar(props) {
           }}
           open
         >
-          {drawer}
+           <Paper
+        style={{ background: '#0355FF',color:'black',height:'100%' }} // set your desired background color
+        elevation={0} // remove the default box shadow
+        square // remove the default rounded corners
+      >
+                  {drawer}
+
+      </Paper>
         </Drawer>
       </Box>
       <Box

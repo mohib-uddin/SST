@@ -122,7 +122,7 @@ const Tests = () => {
         })
         if(found==false)
         {
-            TestData.Students.push({id:Std._id,Name:Std.Name,Marks:e.target.value})
+            TestData.Students.push({RollNo:Std.RollNo,Name:Std.Name,Marks:e.target.value})
         }
 
         console.log(TestData);
@@ -215,78 +215,82 @@ const Tests = () => {
 
         e.preventDefault();
 
-        let Options = {
-            method:"POST",
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-            },
-            body:JSON.stringify(TestData)
-          }
-      
-            fetch("/api/AddTests", Options).then(res => {
-              if (!res.ok) {
-                throw Error('Failed To Fetch');
-              }
-              return res.json();
-            }).then(data => {
-            console.log(data)
-            }).catch(err => {
-             console.log(err.message);
-            });
-
-
-            //ADD TEST TO STUDENTS
-
-            TestData.Students.forEach((e)=>{
-
-              let Data={
-                Title:TestData.Title,
-                Instructor:TestData.Instructor,
-                Subject:TestData.Subject,
-                date:new Date(),
-                Batch:TestData.Batch,
-                MaxMarks:TestData.MaxMarks,
-                ObtainedMarks:e.Marks
-              }
-      
-             
-      
-      
-      
-              let MYOptions = {
-                method:"PUT",
-                headers: {
-                  'Content-Type': 'application/json;charset=utf-8',
-                },
-                body:JSON.stringify({Name:e.Name,items:Data})
-      
-              }
-          
-                fetch("/api/Queries", MYOptions).then(res => {
-                  if (!res.ok) {
-                    throw Error('Failed To Fetch');
-                  }
-                  return res.json();
-                }).then(data => {
-                console.log(data)
-                }).catch(err => {
-                 console.log(err.message);
-                });
-      
-      
-              
-      
-      
-      
-            })
-
             Swal.fire({
-              icon: 'success',
-              title: 'Test Added Successfully',
-              showConfirmButton: false,
-              timer: 1500
+              title: 'Do you want to save the changes?',
+              showDenyButton: true,
+              showCancelButton: true,
+              confirmButtonText: 'Save',
+              denyButtonText: `Don't save`,
+            }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+                
+        let Options = {
+          method:"POST",
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+          body:JSON.stringify(TestData)
+        }
+    
+          fetch("/api/AddTests", Options).then(res => {
+            if (!res.ok) {
+              throw Error('Failed To Fetch');
+            }
+            return res.json();
+          }).then(data => {
+          console.log(data)
+          }).catch(err => {
+           console.log(err.message);
+          });
+
+
+          //ADD TEST TO STUDENTS
+
+          TestData.Students.forEach((e)=>{
+
+            let Data={
+              Title:TestData.Title,
+              Instructor:TestData.Instructor,
+              Subject:TestData.Subject,
+              date:new Date(),
+              Batch:TestData.Batch,
+              MaxMarks:TestData.MaxMarks,
+              ObtainedMarks:e.Marks
+            }
+    
+           
+    
+    
+    
+            let MYOptions = {
+              method:"PUT",
+              headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+              },
+              body:JSON.stringify({Name:e.Name,items:Data})
+    
+            }
+        
+              fetch("/api/Queries", MYOptions).then(res => {
+                if (!res.ok) {
+                  throw Error('Failed To Fetch');
+                }
+                return res.json();
+              }).then(data => {
+              console.log(data)
+              }).catch(err => {
+               console.log(err.message);
+              });
+          })
+
+                Swal.fire('Test Added Successfully!', '', 'success')
+              } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+              }
             })
 
+           
 
      }
 

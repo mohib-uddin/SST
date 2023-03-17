@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 
 const StudentSchema=new mongoose.Schema({
-
+    RollNo:{type:String,required:'true'},
     Name:{type:String,required:'true'},
     FeeStatus:{type:Boolean,required:'true',default:false},
     Fee:{type:Number,required:'true'},

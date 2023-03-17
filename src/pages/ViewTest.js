@@ -45,6 +45,13 @@ export default function ViewTest() {
       editable: true,
       flex:1,
     },
+    {
+      field: 'RollNo',
+      headerName: 'RollNo',
+      width: 150,
+      editable: true,
+      flex:1,
+    },
     
     {
         flex:1,
