@@ -155,7 +155,7 @@ export default function ViewTest() {
                return(
 
                 <div key={index} className='studentcontainer'>
-                    <Card  className='studentcard' style={{display:'flex'}}>
+                    <Card  className='studentcard' style={{display:'flex',background: 'hsl(220.5, 100%, 50.6%)',color:'whitesmoke'}}>
                 <CardContent>
                   <Typography sx={{ fontSize: 20 }} variant='h2' gutterBottom>
                     {e.Title}
